@@ -1,0 +1,264 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title *ngIf="!driveStatus">
+      Offline
+    </ion-title>
+    <ion-title *ngIf="driveStatus">
+      Online
+    </ion-title>
+    <ion-toggle
+      slot="end"
+      [(ngModel)]="driveStatus"
+      (ionChange)="driverStatusChange($event, true)"
+      color="secondary"
+    ></ion-toggle>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!driveStatus">
+    <ion-item color="secondary">
+      <ion-avatar slot="start" class="nightModeIcon">
+        <img src="../../assets/nightMode.png" />
+      </ion-avatar>
+      <ion-label class="textBold">You are Offline</ion-label>
+    </ion-item>
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [zoomControl]="false" 
+      [disableDefaultUI]="false"
+      [streetViewControl]="false" 
+      (mapReady)="mapReady($event)"
+      [styles]="style">
+      <agm-marker
+        [latitude]="lat"
+        [longitude]="lng"
+        [markerDraggable]="true"
+        [iconUrl]="markerUrl"
+        (dragEnd)="markerDragEnd($event)"
+      ></agm-marker>
+      <agm-circle
+        [latitude]="lat"
+        [longitude]="lng"
+        [radius]="2000"
+        [fillColor]="'#DFC033'"
+        [circleDraggable]="false"
+        [editable]="false">
+      </agm-circle>
+    </agm-map>
+  </div>
+
+  <div *ngIf="driveStatus">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false" [disableDefaultUI]="false" [zoomControl]="false" (mapClick)="mapClicked($event)"
+      [fullscreenControl]="true" [fullscreenControlOptions]="screenOptions">
+      <div *ngIf="!pickup">
+        <agm-marker *ngFor="let data of locations; let i = index" [latitude]="data.lat" [longitude]="data.lng" [iconUrl]="car_icon">
+          <agm-info-window>
+            <strong>{{ data.car_name }}</strong>
+          </agm-info-window>
+        </agm-marker>
+      </div>
+      <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd(m, $event)" *ngIf="marker">
+        <agm-info-window>
+          <strong>Current My Location</strong>
+        </agm-info-window>
+      </agm-marker>
+      <agm-marker *ngIf="pickup" [latitude]="customerlocation.lat" [longitude]="customerlocation.lng" [markerDraggable]="false" (dragEnd)="markerDragEnd(m, $event)" [iconUrl]="customerlocation_icon">
+        <agm-info-window>
+          <strong>Customer Location</strong>
+        </agm-info-window>
+      </agm-marker>
+      <agm-direction *ngIf="pickup && origin" [origin]="origin" [destination]="destination" [markerOptions]="markerOptions" [renderOptions]="renderOptions">
+      </agm-direction>
+    </agm-map>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div *ngIf="driveStatus && pickup && arrived">
+    <ion-fab
+      vertical="center"
+      horizontal="end"
+      slot="fixed"
+      class="userlocationIcon"
+      color="dark"
+      padding-bottom
+    >
+    <ion-fab-button>
+      <ion-icon name="locate" class="locationIcon"></ion-icon>
+    </ion-fab-button>
+    </ion-fab>
+    <ion-card slot="fixed" class="userCard">
+      <ion-card-header color="light" class="userCardHeader dFlex">
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col size="3">
+                <div class="div_item">
+                  <ion-avatar>
+                    <img src="{{rider_profile}}" />
+                  </ion-avatar>
+                </div>
+              </ion-col>
+              <ion-col size="9">
+                <div class="div_item">
+                  <ion-label>{{ serviceProvider.order.firstname }} {{ serviceProvider.order.lastname }}</ion-label>
+                </div>
+                <div class="div_item">
+                  <rating
+                    [(ngModel)]="starsCount"
+                    [max]="5"
+                    iconClass="star"
+                    fullIcon="☆"
+                    emptyIcon="★"
+                    [readonly]="false"
+                    [disabled]="false"
+                    [required]="true"
+                    [float]="true"
+                    [titles]="['one', 'two', 'three', 'four', 'five']"
+                    style="color:orange; font-size: 20px"
+                  >
+                  </rating> 
+                  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-icon name="call" expand="icon-only" style="font-size: 25px"></ion-icon>
+                  </ion-fab>
+                </div> 
+              </ion-col> 
+            </ion-row>
+          </ion-grid>
+          <div class="dFlex" align-items-center>
+            <ion-button *ngIf="!discountFlag"
+              size="small"
+              color="primary"
+              shape="round"
+              class="card-Chip textBold boxShadow"
+              text-capitalize
+              (click)="discountAmount()"
+              >Discount</ion-button>
+              <ion-button *ngIf="discountFlag"
+              size="small"
+              color="primary"
+              shape="round"
+              class="card-Chip textBold boxShadow"
+              text-capitalize
+              (click)="stripePay()"
+              >Apply</ion-button>
+              <div float-right padding-start>
+                <div>
+                  <ion-label id="amount" class="textBold">$ {{amount}}</ion-label>
+                </div>
+                <div>
+                  <ion-label id="distance" class="textBold lightTextColor">{{distance}} miles</ion-label>
+                </div>
+              </div>
+            <ion-input type="hidden" id="discount_amount" [(ngModel)]="amount" class="discount"></ion-input>
+          </div>
+      </ion-card-header>
+
+      <ion-card-content color="light" no-margin class="userCard-conetnt">
+        <div class="borderBottom paddingVertical">
+          <div class="detailText fontSmall" text-uppercase>Pick Up</div>
+          <ion-label class="detailsLabel textColor textBold">{{
+            serviceProvider.order.showpickup
+          }}</ion-label>
+        </div>
+
+        <div class="borderBottom paddingVertical">
+          <div class="detailText fontSmall" text-uppercase>Drop Off</div>
+          <ion-label class="detailsLabel  textColor textBold">{{ serviceProvider.order.showdestination }}</ion-label>
+        </div>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button expand="block" type="submit" class="submit_button" (click)="completeRide()">Tap When Dropped</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="driveStatus && pickup && !arrived">
+    <ion-fab
+      vertical="center"
+      horizontal="end"
+      slot="fixed"
+      class="userlocationIcon"
+      color="dark"
+      padding-bottom
+    >
+      <ion-fab-button>
+        <ion-icon name="locate" class="locationIcon"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-card slot="fixed" class="userCard">
+      <ion-card-header color="light" class="userCardHeader dFlex">
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col size="3">
+              <div class="div_item">
+                <ion-avatar>
+                  <img src="{{rider_profile}}" />
+                </ion-avatar>
+              </div>
+            </ion-col>
+            <ion-col size="9">
+              <div class="div_item">
+                <ion-label>{{ serviceProvider.order.firstname }} {{ serviceProvider.order.lastname }}</ion-label>
+              </div>
+              <div class="div_item">
+                <rating
+                  [(ngModel)]="starsCount"
+                  [max]="5"
+                  iconClass="star"
+                  fullIcon="☆"
+                  emptyIcon="★"
+                  [readonly]="false"
+                  [disabled]="false"
+                  [required]="true"
+                  [float]="true"
+                  [titles]="['one', 'two', 'three', 'four', 'five']"
+                  style="color:orange; font-size: 20px"
+                >
+                </rating> 
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                  <ion-icon name="call" expand="icon-only" style="font-size: 25px"></ion-icon>
+                </ion-fab>
+              </div> 
+            </ion-col> 
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+
+      <ion-card-content color="light" no-margin class="userCard-conetnt">
+        <div class="borderBottom paddingVertical">
+          <div class="detailText fontSmall" text-uppercase>Pick Up</div>
+          <ion-label class="detailsLabel textColor textBold">{{
+            serviceProvider.order.showpickup
+          }}</ion-label>
+        </div>
+
+        <div class="borderBottom paddingVertical">
+          <div class="detailText fontSmall" text-uppercase>Drop Off</div>
+          <ion-label class="detailsLabel  textColor textBold">{{ serviceProvider.order.showdestination }}</ion-label>
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button expand="block" type="submit" class="submit_button" (click)="cancelTrip()"
+              >Cancel</ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button expand="block" type="submit" class="submit_button" (click)="arrivedTrip()">Arrived</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-footer>

@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-icon name="arrow-back" (click)="goToBack()" style="font-size: 25px; padding-left: 10px;"></ion-icon>
+      </ion-buttons>
+      <ion-buttons slot="end" (click)="editProfile()">
+        <ion-button>
+          <ion-label text-capitalize>edit</ion-label>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content *ngIf="user" class="contentBgColor">
+    <div class="profileHeader bgWhite" margin-bottom>
+      <ion-avatar class="profileImage">
+        <img [src]="user.profile" />
+      </ion-avatar>
+      <h5 class="textBold" no-margin>{{user.firstname}} {{user.lastname}}</h5>
+      <span class="drivermemberType" padding-bottom>Gold Member</span>
+    </div>
+  
+    <ion-label text-uppercase class="lightTextColor" padding-start margin-top> Information</ion-label>
+    <ion-list no-margin margin-top>
+      <!---Phone Number--->
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Username</h6>
+        <span class="lightTextColor" slot="end">{{user.firstname}} {{user.lastname}}</span>
+      </ion-item>
+  
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Phone Number</h6>
+        <span class="lightTextColor" slot="end">{{user.phonenubmer}}</span>
+      </ion-item>
+  
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Email</h6>
+        <span class="lightTextColor" slot="end">{{user.email}}</span>
+      </ion-item>
+  
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Gender</h6>
+        <span class="lightTextColor" slot="end">Male</span>
+      </ion-item>
+  
+      <ion-item lines="none" class="detailsItems">
+        <h6 slot="start" no-margin>Birthday</h6>
+        <span class="lightTextColor" slot="end">April 28,1996</span>
+      </ion-item>
+
+      <ion-item lines="none" class="detailsItems">
+          <h6 slot="start" no-margin>City</h6>
+          <span class="lightTextColor" slot="end">{{user.city}}</span>
+        </ion-item>
+    </ion-list>
+  
+  </ion-content>

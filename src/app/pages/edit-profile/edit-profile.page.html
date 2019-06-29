@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="dismiss()">
+      <ion-button>
+        <ion-label color="secondary" text-capitalize>Cancel</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content *ngIf="user" class="contentBgColor">
+  <form class="form" [formGroup]="validations_form"  (ngSubmit)="presentAlertConfirm(validations_form.value)">
+    <div class="profileHeader bgWhite" >
+      <div class="editPhoto">
+        <ion-avatar class="profileImage relative" (click)="editPhoto()">
+          <img [src]="user.profile" />
+          <ion-icon name="camera" color="primary" class="iconFontSize cameraIcon"></ion-icon>
+        </ion-avatar>
+        
+        <ion-button fill="clear" (click)="editPhoto()" no-margin>
+          <ion-label color="secondary" text-capitalize class="fontSmall">Edit photo</ion-label>
+        </ion-button>
+      </div>
+
+      <div>
+        <ion-item class="profileInput" margin-start>
+          <ion-input type="text" formControlName="firstname" class="form-controll" required value="{{user.firstname}}"></ion-input>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.firstname">
+              <div class="error-message" *ngIf="validations_form.get('firstname').hasError(validation.type) && (validations_form.get('firstname').dirty || validations_form.get('firstname').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-item>
+        <ion-item class="profileInput" margin-start>
+          <ion-input type="text" formControlName="lastname" class="form-controll" required value="{{user.lastname}}"></ion-input>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.lastname">
+              <div class="error-message" *ngIf="validations_form.get('lastname').hasError(validation.type) && (validations_form.get('lastname').dirty || validations_form.get('lastname').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-item>
+      </div>
+    </div>
+
+    <ion-list no-margin margin-top>
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Phone Number</h6>
+        <span slot="end">
+            <ion-input type="number" formControlName="phonenumber" class="form-controll" required value="{{user.phonenubmer}}"></ion-input>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.phonenumber">
+                <div class="error-message" *ngIf="validations_form.get('phonenumber').hasError(validation.type) && (validations_form.get('phonenumber').dirty || validations_form.get('phonenumber').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+        </span>
+      </ion-item>
+      <ion-item lines="full" class="detailsItems">
+          <h6 slot="start" no-margin>City</h6>
+          <span slot="end">
+            <ion-input type="text" formControlName="city" class="form-controll" required value="{{user.city}}"></ion-input>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.city">
+                <div class="error-message" *ngIf="validations_form.get('city').hasError(validation.type) && (validations_form.get('city').dirty || validations_form.get('city').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+          </span>
+        </ion-item>  
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Email</h6>
+        <span class="lightTextColor" slot="end">{{user.email}}</span>
+      </ion-item>
+
+      <ion-item lines="full" class="detailsItems">
+        <h6 slot="start" no-margin>Gender</h6>
+        <span class="lightTextColor" slot="end">Male</span>
+      </ion-item>
+
+      <ion-item lines="none" class="detailsItems">
+        <h6 slot="start" no-margin>Birthday</h6>
+        <span class="lightTextColor" slot="end">April 28,1996</span>
+      </ion-item>
+
+    </ion-list>
+    <div class="spacer" style="height: 10px;"></div>
+    <div text-center>
+        <ion-button  type="submit"  color="primary" style="width:60%;">Done</ion-button>
+    </div>
+  </form>
+</ion-content>

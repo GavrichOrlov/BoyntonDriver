@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back" (click)="goToBack()" style="font-size: 25px; padding-left: 10px;"></ion-icon>
+    </ion-buttons>
+    <ion-title text-center style="color: white;">Document Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="maincontent">
+  <ion-card *ngFor="let item of documents" (click)="gotoPage(item.url)">
+    <ion-item>
+      <ion-thumbnail class="ion-thumbnail">
+        <ion-icon name="{{item.icon}}" expand="icon-only" class="icon-thumbnail"></ion-icon>
+      </ion-thumbnail>
+      <ion-label>
+        <div class="div1"></div>
+        <div class="div2"></div>
+        <div class="div3"></div>
+      </ion-label>
+    </ion-item>
+    <div class="card_bottom_item">
+      <h2>{{item.name}}</h2>
+    </div>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <div class="footer_center_item">
+    <div class="footer_center_item_background" (click)="gotoPage('/drivinglicense')">
+      <ion-avatar class="avatar_class1">
+        <ion-icon name="add" expand="icon-only" class="icon_avatar1"></ion-icon>
+      </ion-avatar>
+    </div>
+  </div>
+</ion-footer>

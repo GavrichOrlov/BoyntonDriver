@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back" (click)="goToBack()" style="font-size: 25px; padding-left: 10px;"></ion-icon>
+    </ion-buttons>
+    <ion-title text-center style="color:white;">Add new vehicle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="maincontent">
+  
+  <div padding-top>
+    <ion-list>
+      <ion-list-header text-uppercase>type of cars</ion-list-header>
+      <ion-card>
+        <ion-item>
+          <ion-select [interfaceOptions]="customAlertOptions" interface="popover" placeholder="Select type of cars"
+          [(ngModel)]="cartype" (ionChange)="getCartypeid(cartype)">
+            <ion-select-option value={{selectData.id}} *ngFor="let selectData of cars;let  i of index">{{selectData.car_name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngFor="let item of newvehicleData">
+      <ion-list-header text-uppercase>{{item.label}}</ion-list-header>
+      <ion-card>
+        <ion-item>
+          <ion-select [interfaceOptions]="customAlertOptions" interface="popover" placeholder={{item.placeholder}} [(ngModel)]="item.name" (ionChange)="getValue(item.name, item.label)">
+            <ion-select-option value={{selectData.name}} *ngFor="let selectData of item.data;let  i of index">{{selectData.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+  </div>
+  <form [formGroup]="validations_form"  (ngSubmit)="submitform(validations_form.value)"  >
+  <ion-list>
+    <ion-list-header text-uppercase>License PLate</ion-list-header>
+    <ion-card>
+      <ion-item>
+        <ion-input type="text" placeholder="License PLate No" formControlName="carlicence" required></ion-input>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+  <ion-button  class="submit-btn" type="submit" color="dark" style="width: 100%;"  [disabled]="!validations_form.valid">COMPLETE</ion-button>
+  </form>
+</ion-content>

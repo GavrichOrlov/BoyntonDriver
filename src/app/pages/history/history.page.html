@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title text-center style="color:#fff;">
+        History
+      </ion-title>
+    </ion-toolbar>
+    <ion-grid padding-vertical>
+      <ion-row>
+        <div class="week_days">
+          <ion-item
+            *ngFor="let week of weekDays; let i; of: index"
+            [ngClass]="selected == i ? 'weekdays_col' : 'defaultClass'"
+            (click)="weekChecked(i)"
+          >
+            <ion-label text-center>
+              <h6>{{ week.day }}</h6>
+              <h6 class="header_Para">{{ week.date }}</h6>
+            </ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
+  
+  <ion-content>
+    <ion-row padding-vertical>
+      <ion-col size="6">
+        <ion-card class="car_card">
+          <ion-item class="car_item">
+            <ion-thumbnail slot="start" class="card_jobEarn">
+              <ion-img src="../../assets/img/cab.png"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <p>Total Jobs</p>
+              <h2>0
+                <!-- {{ this.rides && this.rides.length }} -->
+              </h2>
+            </ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="usd_card">
+          <ion-item class="usd_item">
+            <ion-thumbnail slot="start" class="card_jobEarn">
+              <ion-img src="../../assets/img/badge.png"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <p>Earned</p>
+              <h2>$325.25</h2>
+            </ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  
+    <!-- <ion-card class="userdetail_Card" *ngFor="let data of userCard" routerLink="/carddetail" no-padding no-margin margin-bottom>
+      <ion-list>
+        <ion-item>
+          <ion-thumbnail slot="start" class="usercard_thumbnail">
+            <ion-img src={{data.image}} class="image_border"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{data.name}}</h2>
+            <ion-button size="small" class="boxShadow">{{data.button1}}</ion-button>
+            <ion-button size="small" class="boxShadow" *ngIf="data.button2">{{data.button2}}</ion-button>
+          </ion-label>
+          <div slot="end">
+            <ion-label>
+              <h2>{{data.amount}}</h2>
+              <p class="userdetail_cardp">{{data.km}}</p>
+            </ion-label>
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <p class="userdetail_cardp">PICK UP</p>
+            <h3>{{data.pickup}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item class="car_item">
+          <ion-label>
+            <p class="userdetail_cardp">DROP OFF</p>
+            <h3>{{data.drop}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card> -->
+  
+    <!-- <ion-card *ngFor="let ride of rides">
+      <div ion-fixed class="map">
+        <agm-map [latitude]="ride.origin.lat" [longitude]="ride.origin.lng">
+          <agm-direction
+            [origin]="ride.origin"
+            [destination]="ride.destination"
+          ></agm-direction>
+        </agm-map>
+      </div>
+  
+      <ion-card-content class="content"
+        ><span>{{ ride.date.toDate().toUTCString() }}</span>
+        <span>$ {{ ride.fare }}</span></ion-card-content
+      >
+    </ion-card> -->
+  </ion-content>
+  

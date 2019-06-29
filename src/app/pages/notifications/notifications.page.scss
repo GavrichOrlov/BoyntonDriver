@@ -1,0 +1,29 @@
+
+ .contentBgColor{
+    --background : #F7F8FA !important;
+}
+
+.descText{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.notificationsIcons {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 90px;
+    border: 1px solid #4051FF;
+    position: absolute;
+    background: #4051FF;
+}
+.notificationText{
+    padding-left:5%;
+    // padding: 1% 18%;
+}
+.notificationHeading{
+    margin-bottom: 3px;
+}

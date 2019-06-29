@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back" (click)="goToBack()" style="font-size: 25px; padding-left: 10px;"></ion-icon>
+    </ion-buttons>
+    <ion-title text-center style="color:#fff;">reviewmanagement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="maincontent">
+  <ion-card class="wallet_card" *ngFor="let feedback of feedbacks">
+    <ion-item class="no_borderbottom">
+      <ion-avatar class="avatar_class" slot="start">
+          <ion-img src="{{host_url}}{{feedback.profile}}"></ion-img>
+      </ion-avatar>
+      
+      <ion-label>
+          <p style="font-size: 15px;" *ngIf="feedback.score == 1">
+              <ion-icon name="star" class="activestarstyle" id="star1" ></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star2"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star3"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star4"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star5"></ion-icon>
+              &nbsp;&nbsp;&nbsp; ${{feedback.amount}}USD
+          </p>
+          <p style="font-size: 15px;" *ngIf="feedback.score == 2">
+              <ion-icon name="star" class="activestarstyle" id="star1" ></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star2"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star3"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star4"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star5"></ion-icon>
+              &nbsp;&nbsp;&nbsp; ${{feedback.amount}}USD
+          </p>
+          <p style="font-size: 15px;" *ngIf="feedback.score == 3">
+              <ion-icon name="star" class="activestarstyle" id="star1" ></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star2"></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star3"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star4"></ion-icon>
+              <ion-icon name="star" class="starstyle" id="star5"></ion-icon>
+              &nbsp;&nbsp;&nbsp; ${{feedback.amount}}USD
+          </p>
+          <p style="font-size: 15px;" *ngIf="feedback.score == 4">
+
+                  <ion-icon name="star" class="activestarstyle" id="star1" ></ion-icon>
+                  <ion-icon name="star" class="activestarstyle" id="star2"></ion-icon>
+                  <ion-icon name="star" class="activestarstyle" id="star3"></ion-icon>
+                  <ion-icon name="star" class="activestarstyle" id="star4"></ion-icon>
+                  <ion-icon name="star" class="starstyle" id="star5"></ion-icon>
+                  &nbsp;&nbsp;&nbsp; ${{feedback.amount}}USD
+              
+          </p>
+          <p style="font-size: 15px;" *ngIf="feedback.score == 5">
+              <ion-icon name="star" class="activestarstyle" id="star1" ></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star2"></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star3"></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star4"></ion-icon>
+              <ion-icon name="star" class="activestarstyle" id="star5"></ion-icon>
+              &nbsp;&nbsp;&nbsp; ${{feedback.amount}}USD
+          </p>
+        <h2>"{{feedback.feedbackcontent}}"</h2>
+        <p> - {{feedback.riderfirstname}} {{feedback.riderlastname}} &nbsp;&nbsp; {{feedback.feedbackdate}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

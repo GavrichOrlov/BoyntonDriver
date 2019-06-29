@@ -1,0 +1,7 @@
+{
+  "name": "BoyntonDriver",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

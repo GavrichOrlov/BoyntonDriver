@@ -1,0 +1,59 @@
+.profileHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    line-height: 1.5;
+    padding-top: 10px;
+}
+.profileImage {
+    width: 80px;
+    height: 80px;
+}
+.profileImage:before {
+    content: '';
+    position: ABSOLUTE;
+    WIDTH: 80px;
+    height: 80px;
+    border-radius: 45px;
+    background: #0009;
+}
+
+.drivermemberType{
+    color:#9B9B9F;
+    font-size: 14px;
+}
+    
+.detailsItems{
+    // --min-height: 30px;
+    --padding-start:8px;
+}
+
+.rightArrow{
+    width: 16px;
+    right: 0;
+    position: absolute;
+}
+
+.editPhoto{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+.cameraIcon{
+    position: absolute;
+    top: 27px;
+    right: 27px;
+}
+.done{
+    color:#C3C8D2
+}
+.profileInput{
+    --min-height: 30px;
+}
+.lightTextColor { color: #CDD0D9; }
+.textBold { font-weight: bold; }
+.contentBgColor { --background: #F0F1F2 !important; }
+.bgWhite { background: #fff; }
